@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Task Management System - Technical Documentation</title>
+    <style>
+        @media print {
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                color: #000;
+                margin: 0;
+                padding: 20px;
+            }
+            
+            h1 {
+                color: #000;
+                border-bottom: 2px solid #000;
+                padding-bottom: 10px;
+                break-after: avoid;
+            }
+            
+            h2 {
+                color: #000;
+                margin-top: 20px;
+                break-after: avoid;
+            }
+            
+            h3 {
+                color: #000;
+                break-after: avoid;
+            }
+            
+            h4 {
+                color: #000;
+                break-after: avoid;
+            }
+            
+            code {
+                background-color: #f8f9fa;
+                padding: 2px 5px;
+                border: 1px solid #ddd;
+                border-radius: 3px;
+                font-family: 'Courier New', monospace;
+            }
+            
+            ul, ol {
+                padding-left: 25px;
+                break-inside: avoid;
+            }
+            
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin: 15px 0;
+                break-inside: avoid;
+            }
+            
+            th, td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: left;
+            }
+            
+            th {
+                background-color: #f5f6fa;
+            }
+            
+            .method {
+                margin-left: 20px;
+                margin-bottom: 15px;
+                break-inside: avoid;
+            }
+            
+            .component {
+                margin-bottom: 20px;
+                padding: 15px;
+                border: 1px solid #000;
+                break-inside: avoid;
+            }
+
+            @page {
+                margin: 2cm;
+                @top-right {
+                    content: "Page " counter(page) " of " counter(pages);
+                }
+            }
+        }
+
+        /* Screen styles */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        
+        h3 {
+            color: #2980b9;
+        }
+        
+        h4 {
+            color: #27ae60;
+        }
+        
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        ul, ol {
+            padding-left: 25px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f5f6fa;
+        }
+        
+        .method {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .component {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .print-button:hover {
+            background-color: #2980b9;
+        }
+
+        @media print {
+            .print-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button onclick="window.print()" class="print-button">Save as PDF</button>
+    <h1>Task Management System - Technical Documentation</h1>
+
+    <div class="component">
+        <h2>Project Overview</h2>
+        <p>The Task Management System is a web-based application built using Spring Boot that allows users to manage their tasks efficiently. The system provides features for task creation, updating, deletion, and tracking task status with email notifications for upcoming deadlines.</p>
+    </div>
+
+    <div class="component">
+        <h2>Technical Stack</h2>
+        <ul>
+            <li><strong>Backend:</strong> Spring Boot 3.x</li>
+            <li><strong>Frontend:</strong> Thymeleaf, Bootstrap, jQuery</li>
+            <li><strong>Database:</strong> MySQL</li>
+            <li><strong>Security:</strong> Spring Security</li>
+            <li><strong>Build Tool:</strong> Maven</li>
+            <li><strong>Java Version:</strong> 17</li>
+        </ul>
+    </div>
+
+    <div class="component">
+        <h2>Core Components</h2>
+
+        <h3>1. Models</h3>
+        
+        <h4>User.java</h4>
+        <div class="method">
+            <p><strong>Purpose:</strong> Represents user data and implements Spring Security's UserDetails</p>
+            <p><strong>Key Fields:</strong></p>
+            <ul>
+                <li>id: Unique identifier</li>
+                <li>firstName, lastName: User's name</li>
+                <li>email: User's email (unique)</li>
+                <li>username: Login username (unique)</li>
+                <li>password: Encrypted password</li>
+                <li>listOfTask: One-to-many relationship with tasks</li>
+                <li>emailNotificationsEnabled: Toggle for email notifications</li>
+            </ul>
+            <p><strong>Key Methods:</strong></p>
+            <ul>
+                <li>getAuthorities(): Returns user roles (ROLE_USER)</li>
+                <li>UserDetails interface implementations for security</li>
+            </ul>
+        </div>
+
+        <h4>Task.java</h4>
+        <div class="method">
+            <p><strong>Purpose:</strong> Represents a task entity</p>
+            <p><strong>Key Fields:</strong></p>
+            <ul>
+                <li>id: Unique identifier</li>
+                <li>title: Task title</li>
+                <li>description: Task details</li>
+                <li>dueDate: Task deadline</li>
+                <li>status: PENDING, IN_PROGRESS, COMPLETED</li>
+                <li>priority: LOW, MEDIUM, HIGH, URGENT</li>
+                <li>user: Many-to-one relationship with User</li>
+            </ul>
+        </div>
+
+        <h3>2. Controllers</h3>
+
+        <h4>HomeController.java</h4>
+        <div class="method">
+            <p><strong>Purpose:</strong> Handles main application routing and dashboard</p>
+            <p><strong>Key Endpoints:</strong></p>
+            <ul>
+                <li>GET /: Shows landing page</li>
+                <li>GET /home: Displays user dashboard with task statistics</li>
+            </ul>
+            <p><strong>Key Methods:</strong></p>
+            <ul>
+                <li>home(): Aggregates task statistics and user data</li>
+                <li>getAuthenticatedUser(): Retrieves current user</li>
+            </ul>
+        </div>
+
+        <h4>TaskController.java</h4>
+        <div class="method">
+            <p><strong>Purpose:</strong> Manages task-related operations</p>
+            <p><strong>Key Endpoints:</strong></p>
+            <ul>
+                <li>GET /tasks/create: Shows task creation form</li>
+                <li>POST /tasks/save: Creates new task</li>
+                <li>GET /tasks/edit/{id}: Shows task edit form</li>
+                <li>POST /tasks/update/{id}: Updates existing task</li>
+                <li>GET /tasks/delete/{id}: Deletes task</li>
+            </ul>
+        </div>
+
+        <h3>3. Services</h3>
+
+        <h4>TaskServiceImpl.java</h4>
+        <div class="method">
+            <p><strong>Purpose:</strong> Implements task business logic</p>
+            <p><strong>Key Methods:</strong></p>
+            <ul>
+                <li>createTask(): Creates new tasks</li>
+                <li>updateTask(): Updates existing tasks</li>
+                <li>deleteTask(): Removes tasks</li>
+                <li>getTasksByUserId(): Retrieves user's tasks</li>
+                <li>countCompletedTasksByUserId(): Counts completed tasks</li>
+                <li>sendTaskReminders(): Scheduled job for email notifications</li>
+            </ul>
+        </div>
+
+        <h4>UserServiceImpl.java</h4>
+        <div class="method">
+            <p><strong>Purpose:</strong> Implements user management logic</p>
+            <p><strong>Key Methods:</strong></p>
+            <ul>
+                <li>createUser(): Registers new users</li>
+                <li>getUserByUsername(): Retrieves user by username</li>
+                <li>updateUser(): Updates user information</li>
+            </ul>
+        </div>
+
+        <h3>4. Security</h3>
+
+        <h4>SecurityConfig.java</h4>
+        <div class="method">
+            <p><strong>Purpose:</strong> Configures Spring Security</p>
+            <p><strong>Key Configurations:</strong></p>
+            <ul>
+                <li>Password encoding</li>
+                <li>URL-based security rules</li>
+                <li>Login/logout handling</li>
+                <li>CSRF protection</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="component">
+        <h2>Key Features</h2>
+        <h3>1. Task Management</h3>
+        <ul>
+            <li>Create, read, update, and delete tasks</li>
+            <li>Set task priority and status</li>
+            <li>Track task due dates</li>
+            <li>Filter tasks by status and priority</li>
+        </ul>
+
+        <h3>2. User Management</h3>
+        <ul>
+            <li>User registration and authentication</li>
+            <li>Profile management</li>
+            <li>Email notification preferences</li>
+        </ul>
+
+        <h3>3. Dashboard</h3>
+        <ul>
+            <li>Task statistics overview</li>
+            <li>Quick access to recent tasks</li>
+            <li>Task status distribution</li>
+        </ul>
+
+        <h3>4. Email Notifications</h3>
+        <ul>
+            <li>Due date reminders</li>
+            <li>Task status updates</li>
+            <li>Customizable notification preferences</li>
+        </ul>
+    </div>
+
+    <div class="component">
+        <h2>Database Schema</h2>
+        
+        <h3>users_table</h3>
+        <table>
+            <tr>
+                <th>Column</th>
+                <th>Type</th>
+                <th>Constraints</th>
+            </tr>
+            <tr>
+                <td>id</td>
+                <td>BIGINT</td>
+                <td>PK, AUTO_INCREMENT</td>
+            </tr>
+            <tr>
+                <td>username</td>
+                <td>VARCHAR(255)</td>
+                <td>UNIQUE, NOT NULL</td>
+            </tr>
+            <tr>
+                <td>email</td>
+                <td>VARCHAR(255)</td>
+                <td>UNIQUE, NOT NULL</td>
+            </tr>
+            <tr>
+                <td>password</td>
+                <td>VARCHAR(255)</td>
+                <td>NOT NULL</td>
+            </tr>
+        </table>
+
+        <h3>tasks_table</h3>
+        <table>
+            <tr>
+                <th>Column</th>
+                <th>Type</th>
+                <th>Constraints</th>
+            </tr>
+            <tr>
+                <td>id</td>
+                <td>BIGINT</td>
+                <td>PK, AUTO_INCREMENT</td>
+            </tr>
+            <tr>
+                <td>title</td>
+                <td>VARCHAR(255)</td>
+                <td>NOT NULL</td>
+            </tr>
+            <tr>
+                <td>user_id</td>
+                <td>BIGINT</td>
+                <td>FK (users_table.id)</td>
+            </tr>
+            <tr>
+                <td>status</td>
+                <td>VARCHAR(20)</td>
+                <td>NOT NULL</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="component">
+        <h2>Best Practices Implemented</h2>
+        <ol>
+            <li><strong>Security</strong>
+                <ul>
+                    <li>Password encryption</li>
+                    <li>Input validation</li>
+                    <li>CSRF protection</li>
+                    <li>Session management</li>
+                </ul>
+            </li>
+            <li><strong>Code Organization</strong>
+                <ul>
+                    <li>MVC architecture</li>
+                    <li>Service layer abstraction</li>
+                    <li>Repository pattern</li>
+                    <li>Interface-based design</li>
+                </ul>
+            </li>
+            <li><strong>Performance</strong>
+                <ul>
+                    <li>Lazy loading for tasks</li>
+                    <li>Pagination for large datasets</li>
+                    <li>Optimized database queries</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+    <div class="component">
+        <h2>Future Enhancements</h2>
+        <ol>
+            <li>Task Categories/Tags</li>
+            <li>Team Collaboration Features</li>
+            <li>File Attachments</li>
+            <li>Advanced Search/Filter</li>
+            <li>Mobile Application</li>
+            <li>API Documentation</li>
+            <li>Performance Monitoring</li>
+            <li>Backup/Restore Functionality</li>
+        </ol>
+    </div>
+</body>
+</html>

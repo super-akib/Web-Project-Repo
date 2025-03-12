@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{base::layout(~{::section})}">
+<head>
+    <title>Login - Task Management System</title>
+</head>
+<body>
+    <section th:fragment="content">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <h1><i class="fas fa-sign-in-alt"></i> Sign In</h1>
+                        <p class="auth-subtitle">Welcome back! Please sign in to continue</p>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Invalid username or password
+                    </div>
+
+                    <!-- Logout Message -->
+                    <div th:if="${param.logout}" class="alert alert-success" role="alert">
+                        <i class="fas fa-check-circle"></i>
+                        You have been logged out successfully
+                    </div>
+
+                    <form th:action="@{/login}" method="post" class="auth-form">
+                        <!-- Username -->
+                        <div class="form-group">
+                            <label for="username">
+                                <i class="fas fa-user"></i> Username
+                            </label>
+                            <input type="text" id="username" name="username" 
+                                   class="form-control" required 
+                                   placeholder="Enter your username">
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group">
+                            <label for="password">
+                                <i class="fas fa-lock"></i> Password
+                            </label>
+                            <input type="password" id="password" name="password" 
+                                   class="form-control" required 
+                                   placeholder="Enter your password">
+                        </div>
+
+                        <!-- Remember Me -->
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input type="checkbox" id="remember-me" name="remember-me" 
+                                       class="form-check-input">
+                                <label class="form-check-label" for="remember-me">
+                                    <i class="fas fa-clock"></i> Remember me
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <i class="fas fa-sign-in-alt"></i> Sign In
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="auth-footer">
+                        <p>Don't have an account? 
+                            <a th:href="@{/register}" class="auth-link">
+                                <i class="fas fa-user-plus"></i> Create one here
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

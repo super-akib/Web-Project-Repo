@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+    <title>Edit Profile</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <section th:fragment="content">
+    <div class="container">
+        <h2>Edit Profile</h2>
+
+        <form th:action="@{/profile/update}" th:object="${user}" method="post">
+            <div>
+                <label>First Name:</label>
+                <input type="text" th:field="*{firstName}" required />
+            </div>
+
+            <div>
+                <label>Last Name:</label>
+                <input type="text" th:field="*{lastName}" required />
+            </div>
+
+            <div>
+                <label>Email:</label>
+                <input type="email" th:field="*{email}" required />
+            </div>
+
+            <div>
+                <label>Phone Number:</label>
+                <input type="text" th:field="*{phoneNumber}" required />
+            </div>
+
+            <button type="submit" class="btn btn-success">Update Profile</button>
+            <a th:href="@{/profile/show}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+    </section>
+</body>
+</html>

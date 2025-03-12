@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Task Due Reminder</title>
+</head>
+<body>
+    <p>Dear <b th:text="${userName}"></b>,</p>
+    <p>Your task <b th:text="${taskTitle}"></b> is due on <b th:text="${dueDate}"></b>. Please complete it on time.</p>
+    <p>Best Regards,</p>
+    <p><b>Task Management System</b></p>
+</body>
+</html>

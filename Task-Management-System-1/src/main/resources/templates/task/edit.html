@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Task - Task Management System</title>
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="form-container">
+                <h1><i class="fas fa-edit"></i> Edit Task</h1>
+
+                <form th:action="@{/tasks/update/{id}(id=${task.id})}" method="post" class="task-form">
+                    <input type="hidden" name="id" th:value="${task.id}">
+
+                    <div class="form-group">
+                        <label for="title">Title <span class="required">*</span></label>
+                        <input type="text" id="title" name="title" 
+                               th:value="${task.title}" class="form-control" required maxlength="100" 
+                               placeholder="Enter task title">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description <span class="required">*</span></label>
+                        <textarea id="description" name="description" 
+                                th:text="${task.description}" class="form-control" required rows="4" maxlength="500" 
+                                placeholder="Enter task description"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dueDate">Due Date <span class="required">*</span></label>
+                        <input type="datetime-local" id="dueDate" name="dueDate" 
+                               th:value="${#temporals.format(task.dueDate, 'yyyy-MM-dd''T''HH:mm')}" 
+                               class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priority">Priority <span class="required">*</span></label>
+                        <select id="priority" name="priority" class="form-control" required>
+                            <option value="HIGH" th:selected="${task.priority == T(com.md.taskmanagementsystem.enums.TaskPriority).HIGH}">High</option>
+                            <option value="MEDIUM" th:selected="${task.priority == T(com.md.taskmanagementsystem.enums.TaskPriority).MEDIUM}">Medium</option>
+                            <option value="LOW" th:selected="${task.priority == T(com.md.taskmanagementsystem.enums.TaskPriority).LOW}">Low</option>
+                            <option value="URGENT" th:selected="${task.priority == T(com.md.taskmanagementsystem.enums.TaskPriority).URGENT}">Urgent</option>
+                        </select>
+                        <small class="form-text text-muted">
+                            <i class="fas fa-info-circle"></i> Select task priority level
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Status <span class="required">*</span></label>
+                        <select id="status" name="status" class="form-control" required>
+                            <option value="PENDING" th:selected="${task.status == T(com.md.taskmanagementsystem.enums.TaskStatus).PENDING}">Pending</option>
+                            <option value="IN_PROGRESS" th:selected="${task.status == T(com.md.taskmanagementsystem.enums.TaskStatus).IN_PROGRESS}">In Progress</option>
+                            <option value="COMPLETED" th:selected="${task.status == T(com.md.taskmanagementsystem.enums.TaskStatus).COMPLETED}">Completed</option>
+                        </select>
+                        <small class="form-text text-muted">
+                            <i class="fas fa-info-circle"></i> Select current task status
+                        </small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Update Task
+                        </button>
+                        <a th:href="@{/tasks}" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
